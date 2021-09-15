@@ -19,6 +19,9 @@ services:
       - SYMFONY__ENV__FROM_EMAIL=<smtp-user-email>                           # Change this
       - SYMFONY__ENV__DOMAIN_NAME=https://wallabag.example.com               # Change this
       - SYMFONY__ENV__SERVER_NAME="Your wallabag instance"
+    # If using watchtower, uncomment the line below to disable automatic updates
+    #labels:
+    #  - "com.centurylinklabs.watchtower.enable=false"
     ports:
       - 8543:80                                                              # Serving on port '8543', can change to a different port
     volumes:
