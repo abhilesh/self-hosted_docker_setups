@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  calibre-web:
+    image: linuxserver/calibre-web:latest
+    container_name: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      # I had some issues with Google's OAuth login and hence added the following two lines
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
+      - OAUTHLIB_INSECURE_TRANSPORT=1
+    volumes:
+      - /home/pi/calibre-web:/config
+      - /mnt/nfs_darwin/eBook_Library:/books
+    ports:
+      - 8083:8083
+    restart: unless-stopped
