@@ -40,6 +40,8 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Watchtower](https://github.com/containrrr/watchtower)
 * [qBittorrent](https://github.com/linuxserver/docker-qbittorrent)
 
+Discover other awesome self-hosted services at - https://github.com/awesome-selfhosted/awesome-selfhosted
+
 ---
 ## Getting started
 Install ```docker``` and ```docker-compose``` on your RPi to start building containers
