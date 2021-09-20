@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx_proxy_app
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./config.json:/app/config/production.json
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    restart: always
+  db:
+    #image: 'yobasystems/alpine-mariadb:latest'                      # for armhf
+    image: arm64v8/mariadb:10.5
+    container_name: nginx_proxy_db
+    environment:
+      MYSQL_ROOT_PASSWORD: '<secure-root-password>'                  # Change this
+      MYSQL_DATABASE: 'npm
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: '<password>'                                   # Change this
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    restart: always
