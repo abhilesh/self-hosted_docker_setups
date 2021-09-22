@@ -86,7 +86,7 @@ sudo pip3 install docker-compose
 sudo systemctl enable docker
 ```
 
-### Test Docker with a ```hello-world``` container
+### Test Docker with a 'hello-world' container
 ``` bash
 docker run hello-world
 ```
