@@ -1,8 +1,7 @@
 version: '3'
 services:
   wallabag:
-    build: https://github.com/wallabag/docker.git#2.4.2
-    image: wallabag:2.4.2
+    image: abhilesh7/wallabag-arm
     container_name: wallabag_app
     environment:
       - MYSQL_ROOT_PASSWORD=<secure-root-password>                           # Change this
