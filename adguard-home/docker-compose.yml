@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  adguard-home:
+    image: adguard/adguardhome
+    container_name: adguard-home
+    restart: unless-stopped
+    volumes:
+      - '/home/pi/adguard-home/work:/opt/adguardhome/work'
+      - '/home/pi/adguard-home/conf:/opt/adguardhome/conf'
+    ports:
+      - '192.168.X.X:53:53/tcp'                                      # Change this (IP address of host)
+      - '192.168.X.X:53:53/udp'                                      # Change this (IP address of host)
+      - '67:67/udp'
+      - '68:68/udp'
+      - '80:80/tcp'
+      - '443:443/tcp'
+      - '443:443/udp'
+      - '3004:3000/tcp'
+      - '853:853/tcp'
+      - '784:784/udp'
+      - '853:853/udp'
+      - '8853:8853/udp'
+      - '5443:5443/tcp'
+      - '5443:5443/udp'
+    cap_add:
+      - NET_ADMIN
