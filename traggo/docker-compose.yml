@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  traggo:
+    image: traggo/server:latest
+    container_name: traggo
+    ports:
+      - 3030:3030
+    environment:
+      TRAGGO_DEFAULT_USER_NAME: "<traggo-user>"
+      TRAGGO_DEFAULT_USER_PASS: "<traggo-password>"
+    volumes:
+      - ./traggodata:/opt/traggo/data
