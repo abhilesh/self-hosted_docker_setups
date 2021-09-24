@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    container_name: uptime-kuma
+    volumes:
+      - ./uptime-kuma:/app/data
+    ports:
+      - 3001:3001
+    dns: 192.168.X.X                       # IP address of router
