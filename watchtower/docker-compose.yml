@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    environment:
+      TZ: America/Chicago                                                                               # Change this
+      WATCHTOWER_ROLLING_RESTART: 'true'
+      #WATCHTOWER_MONITOR_ONLY: 'true'
+      WATCHTOWER_SCHEDULE: '0 0 3 * * *'
+      WATCHTOWER_CLEANUP: 'true'
+      # Settings for email notifications
+      #WATCHTOWER_NOTIFICATIONS: email
+      #WATCHTOWER_NOTIFICATION_EMAIL_FROM: <user-email-address>                                         # Change this
+      #WATCHTOWER_NOTIFICATION_EMAIL_TO: <user-email-address>                                           # Change this
+      # you have to use a network alias here, if you use your own certificate
+      #WATCHTOWER_NOTIFICATION_EMAIL_SERVER: smtp.gmail.com                                             # Using gmail as SMTP server
+      #WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: 587
+      #WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER: <user-email-address>                                  # Change this
+      #WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD: <user-email-password>                             # Change this
+      #WATCHTOWER_NOTIFICATION_EMAIL_DELAY: 2
+      # Settings for gotify notifications
+      WATCHTOWER_NOTIFICATIONS: gotify
+      WATCHTOWER_NOTIFICATION_GOTIFY_URL: https://gotify.example.com                                    # Change this to gotify address
+      WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN: <gotify-client-token>                                       # Get gotify client tokens from the gotify server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
