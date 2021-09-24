@@ -1,0 +1,15 @@
+---
+version: '3'
+
+services:
+  overseerr:
+    image: sctx/overseerr:latest
+    container_name: overseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/Chicago                                          # Change this
+    ports:
+      - 5055:5055
+    volumes:
+      - /home/pi/overseerr/config:/app/config
+    restart: unless-stopped
