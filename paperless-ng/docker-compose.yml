@@ -74,7 +74,7 @@ services:
 
   tika:
     container_name: paperless_tika
-    image: apache/tika
+    image: abhilesh7/apache-tika-arm:latest
     restart: unless-stopped
 
 volumes:
