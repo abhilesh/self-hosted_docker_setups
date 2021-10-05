@@ -32,6 +32,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Readarr](https://github.com/linuxserver/docker-readarr)
 * [Sonarr](https://github.com/linuxserver/docker-sonarr)
 * [SurfShark VPN](https://github.com/ilteoood/docker-surfshark)
+* [Traggo](https://github.com/traggo/server)
 * [Transmission](https://github.com/linuxserver/docker-transmission)
 * [Uptime-Kuma](https://github.com/louislam/uptime-kuma)
 * [Vaultwarden](https://github.com/dani-garcia/vaultwarden)
