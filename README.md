@@ -28,6 +28,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [PodGrab](https://github.com/akhilrex/podgrab)
 * [Portainer](https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/)
 * [Prowlarr](https://github.com/linuxserver/docker-prowlarr)
+* [qBittorrent](https://github.com/linuxserver/docker-qbittorrent)
 * [Radarr](https://github.com/linuxserver/docker-radarr)
 * [Readarr](https://github.com/linuxserver/docker-readarr)
 * [Sonarr](https://github.com/linuxserver/docker-sonarr)
@@ -39,7 +40,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Vikunja](https://github.com/go-vikunja) (Frontend + API + Database + Redis + Proxy)
 * [Wallabag](https://github.com/wallabag/wallabag) (WebApp + Database + Redis)
 * [Watchtower](https://github.com/containrrr/watchtower)
-* [qBittorrent](https://github.com/linuxserver/docker-qbittorrent)
+* [Wireguard](https://github.com/linuxserver/docker-wireguard)
 
 Discover other awesome self-hosted services at - https://github.com/awesome-selfhosted/awesome-selfhosted
 
