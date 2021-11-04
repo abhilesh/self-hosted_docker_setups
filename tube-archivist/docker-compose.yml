@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  tubearchivist:
+    container_name: tubearchivist
+    restart: always
+    image: bbilly1/tubearchivist:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - /home/pi/volumes/tubearchivist/media:/youtube
+      - /home/pi/volumes/tubearchivist/cache:/cache
+    environment:
+      - ES_URL=http://archivist-es:9200
+      - REDIS_HOST=archivist-redis
+      - HOST_UID=1000
+      - HOST_GID=1000
+      - TA_USERNAME=tubearchivist                                             # Change login username
+      - TA_PASSWORD=secret                                                    # Change login password
+      - ELASTIC_PASSWORD=verysecret                                           # Change ElasticSearch password
+    depends_on:
+      - archivist-es
+      - archivist-redis
+  archivist-redis:
+    image: bbilly1/rejson
+    container_name: archivist-redis
+    restart: always
+    expose:
+      - "6379"
+    volumes:
+      - /home/pi/volumes/tubearchivist/redis:/data
+    depends_on:
+      - archivist-es
+  archivist-es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    container_name: archivist-es
+    restart: always
+    environment:
+      - "xpack.security.enabled=true"
+      - "ELASTIC_PASSWORD=verysecret"                                         # Change ElasticSearch password (Must be same as above)
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /home/pi/volumes/tubearchivist/es:/usr/share/elasticsearch/data
+    expose:
+      - "9200"
