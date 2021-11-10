@@ -54,6 +54,8 @@ services:
       PHOTOPRISM_DISABLE_WEBDAV: "false"             # Disables built-in WebDAV server
       PHOTOPRISM_DISABLE_SETTINGS: "false"           # Disables Settings in Web UI
       PHOTOPRISM_DISABLE_TENSORFLOW: "false"         # Disables using TensorFlow for image classification
+      PHOTOPRISM_DISABLE_FACES: "false"              # Disables facial recognition
+      PHOTOPRISM_DISABLE_CLASSIFICATION: "false"     # Disables image classification      
       PHOTOPRISM_DARKTABLE_PRESETS: "true"           # Enables Darktable presets and disables concurrent RAW conversion
       # PHOTOPRISM_FFMPEG_ENCODER: "h264_v4l2m2m"    # FFmpeg AVC encoder for video transcoding (default: libx264)
       # PHOTOPRISM_FFMPEG_BUFFERS: "64"              # FFmpeg capture buffers (default: 32)
@@ -70,6 +72,7 @@ services:
       PHOTOPRISM_SITE_CAPTION: "Browse Your Life"
       PHOTOPRISM_SITE_DESCRIPTION: ""
       PHOTOPRISM_SITE_AUTHOR: ""
+      HOME: "/photoprism"
       # You may optionally set a user / group id using environment variables if your Docker version or NAS does not
       # support this natively (see next example):
       # UID: 1000
@@ -77,6 +80,7 @@ services:
       # UMASK: 0000
     # Uncomment and edit the following line to set a specific user / group id (native):
     user: "1000:1000"
+    working_dir: "/photoprism"
     # For hardware AVC transcoding using the h264_v4l2m2m encoder:
     # devices:
     #  - "/dev/video11:/dev/video11"
@@ -90,9 +94,11 @@ services:
       # - "~/Import:/photoprism/import"
       # Permanent storage for settings, index & sidecar files (DON'T REMOVE):
       - "/mnt/nfs-share/PhotoPrism/storage:/photoprism/storage"                                                          # Change this
+      - "/etc/localtime:/etc/localtime:ro"              # Use host's localtime, mounted read-only
+      - "/etc/timezone:/etc/timezone:ro"                # Use host's timezone, mounted read-only
 
   mariadb:
-    image: arm64v8/mariadb:10.5
+    image: arm64v8/mariadb:10.6
     container_name: photoprism_db
     restart: unless-stopped
     security_opt:
@@ -101,12 +107,26 @@ services:
     command: mysqld --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=50
     volumes: # Don't remove permanent storage for index database files!
       - "./database:/var/lib/mysql"
+      - "/etc/localtime:/etc/localtime:ro"              # Use host's localtime, mounted read-only
+      - "/etc/timezone:/etc/timezone:ro"                # Use host's timezone, mounted read-only
     environment:
       MYSQL_ROOT_PASSWORD: "<secure-root-password>"
       MYSQL_DATABASE: "photoprism"
       MYSQL_USER: "photoprism"
       MYSQL_PASSWORD: "<password>"
 
+  ## Ofelia Job Runner (required)
+  ## see https://github.com/mcuadros/ofelia
+  ofelia:
+    restart: unless-stopped
+    image: mcuadros/ofelia:latest
+    container_name: photoprism_ofelia_curie
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./jobs.ini:/etc/ofelia/config.ini"
+      - "/etc/localtime:/etc/localtime:ro"              # Use host's localtime, mounted read-only
+      - "/etc/timezone:/etc/timezone:ro"                # Use host's timezone, mounted read-only
+      
 # Adding NFS volumes
 volumes:
   originals:
