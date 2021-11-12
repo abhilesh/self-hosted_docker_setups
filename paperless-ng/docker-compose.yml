@@ -56,8 +56,8 @@ services:
     volumes:
       - /mnt/nfs-share/Paperless/data:/usr/src/paperless/data
       - /mnt/nfs-share/Paperless/media:/usr/src/paperless/media
-      - /mnt/nfs-share/Paperless/./export:/usr/src/paperless/export
-      - /mnt/nfs-share/Paperless/./consume:/usr/src/paperless/consume
+      - /mnt/nfs-share/Paperless/export:/usr/src/paperless/export
+      - /mnt/nfs-share/Paperless/consume:/usr/src/paperless/consume
     env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379
