@@ -32,6 +32,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [qBittorrent](https://github.com/linuxserver/docker-qbittorrent)
 * [Radarr](https://github.com/linuxserver/docker-radarr)
 * [Readarr](https://github.com/linuxserver/docker-readarr)
+* [Snapdrop](https://github.com/RobinLinus/snapdrop)
 * [Sonarr](https://github.com/linuxserver/docker-sonarr)
 * [SurfShark VPN](https://github.com/ilteoood/docker-surfshark)
 * [Traggo](https://github.com/traggo/server)
