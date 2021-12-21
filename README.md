@@ -15,7 +15,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Flood](https://github.com/jesec/flood)
 * [Gitea](https://github.com/go-gitea/gitea) (Server + Database)
 * [Gotify](https://github.com/gotify)
-* [Grocy] (https://github.com/linuxserver/docker-grocy)
+* [Grocy](https://github.com/linuxserver/docker-grocy)
 * [Home Assistant](https://github.com/linuxserver/docker-homeassistant)
 * [Homer](https://github.com/bastienwirtz/homer)
 * [Joplin](https://github.com/flosoft/docker-joplin-server) (Server + Database)
