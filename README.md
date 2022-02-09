@@ -9,6 +9,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Authelia](https://github.com/authelia/authelia)
 * [Bazarr](https://github.com/linuxserver/docker-bazarr)
 * [Calibre-web](https://github.com/janeczku/calibre-web)
+* [Cloudflare-DDNS](https://github.com/oznu/docker-cloudflare-ddns)
 * [Code-Server](https://github.com/linuxserver/docker-code-server)
 * [Dockprom](https://github.com/stefanprodan/dockprom) (Prometheus + Grafana + cAdvisor + Nodeexporter + Alertmanager + Pushgateway + Caddy)
 * [Duplicati](https://github.com/linuxserver/docker-duplicati)

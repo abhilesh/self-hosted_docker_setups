@@ -1,0 +1,12 @@
+version: '2'
+services:
+  cloudflare-ddns:
+    container_name: cloudflare-ddns
+    image: oznu/cloudflare-ddns:latest
+    restart: always
+    environment:
+      - API_KEY=XXXXXXXXXXXXXXXXXXXXX            # Change to your cloudflare API token (https://developers.cloudflare.com/api/tokens/create)
+      - ZONE=domain.com                          # Change to your domain
+      - PROXIED=true
+      - PUID=1000                                # Change this
+      - PGID=1000                                # Change this
