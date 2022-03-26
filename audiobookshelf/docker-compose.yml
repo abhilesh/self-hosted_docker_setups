@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  audiobookshelf:
+    image: advplyr/audiobookshelf
+    container_name: audiobookshelf
+    ports:
+      - 13378:80
+    volumes:
+      - /mnt/nfs_share/audiobooks:/audiobooks                  # Data directory (audiobooks stored here)
+      - /home/pi/audiobookshelf/metadata:/metadata             # Metadata directory (metadata stored here)
+      - /home/pi/audiobookshelf/config:/config                 # Config directory (config stored here)
+    restart: unless-stopped
