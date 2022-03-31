@@ -9,7 +9,7 @@ services:
       - PGID=1000
       - TZ=Amrerica/Chicago                                             # Change this
     volumes:
-      - /home/abhilesh/home-server/grocy/config:/config                 # Change this
+      - /home/pi/home-server/grocy/config:/config                 # Change this
     ports:
       - 80:80                                                           # Change this
     restart: unless-stopped
