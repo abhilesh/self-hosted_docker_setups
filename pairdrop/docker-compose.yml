@@ -13,5 +13,5 @@ services:
       - RTC_CONFIG=                                  # optional
       - DEBUG_MODE=false                             # optional
     ports:
-      - 8080:3000                                    # Change this <external-ip:internal-ip>
+      - 3000:3000                                    # Change this <external-ip:internal-ip>
     restart: unless-stopped
