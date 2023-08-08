@@ -77,16 +77,8 @@ groups ${USER}
 ```
 
 ### Install Docker-Compose
-Installing python3 and pip3 to run the installer scripts
 ``` bash
-sudo apt-get install libffi-dev libssl-dev
-sudo apt install python3-dev
-sudo apt-get install -y python3 python3-pip
-```
-
-Install docker-compose
-``` bash
-sudo pip3 install docker-compose
+sudo apt-get install docker-compose plugin
 ```
 
 ### Enable Docker to start your containers on boot
@@ -102,5 +94,20 @@ docker run hello-world
 ### Start a container using docker-compose
 Navigate to project root directory which contains the ```docker-compose.yml``` file
 ``` bash
-docker-compose up -d
+docker compose up -d
+```
+
+### Upgrading containers with Docker-Compose
+``` bash
+# Pull the latest images
+docker compose pull
+
+# Stop running containers
+docker compose stop
+
+# Remove stopped containers
+docker compose rm -f
+
+# Rebuild containers with updated images
+docker compose up -d --build
 ```
