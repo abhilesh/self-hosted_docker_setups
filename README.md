@@ -19,6 +19,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Grocy](https://github.com/linuxserver/docker-grocy)
 * [Guacamole](https://hub.docker.com/r/guacamole/guacamole)
 * [Home Assistant](https://github.com/linuxserver/docker-homeassistant)
+* [Immich](https://github.com/immich-app/immich) (Server + ML container + Redis + Database)
 * [Homer](https://github.com/bastienwirtz/homer)
 * [Joplin](https://github.com/flosoft/docker-joplin-server) (Server + Database)
 * [Lidarr](https://github.com/linuxserver/docker-lidarr)
