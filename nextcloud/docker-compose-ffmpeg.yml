@@ -27,7 +27,9 @@ services:
     restart: always
 
   app:
-    image: nextcloud
+    build:
+      context: .
+      dockerfile: Dockerfile                                       # Ensure dockerfile is in the same directory as the docker-compose file
     container_name: nextcloud_app
     ports:
       - target: 80
@@ -61,7 +63,9 @@ services:
       - redis
 
   cron:
-    image: nextcloud
+    build:
+      context: .
+      dockerfile: Dockerfile                                       # Ensure dockerfile is in the same directory as the docker-compose file
     container_name: nextcloud_cron
     restart: always
     volumes:
