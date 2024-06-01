@@ -1,0 +1,35 @@
+services:
+  wp_db:
+    # Mariadb image that supports both amd64 & arm64 architecture
+    image: mariadb:10.6.5-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=<secure-root-password>                 # Change this
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=<password>                                  # Change this
+    expose:
+      - 3306
+      - 33060
+  wordpress:
+    image: wordpress:latest
+    depends_on:
+      - wp_db
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=wp_db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=<password>                            # Change this (same as defined in `wp_db` )
+      - WORDPRESS_DB_NAME=wordpress
+volumes:
+  db_data:
+  wp_data:
