@@ -28,7 +28,7 @@ services:
     environment:
       - WORDPRESS_DB_HOST=wp_db
       - WORDPRESS_DB_USER=wordpress
-      - WORDPRESS_DB_PASSWORD=<password>                            # Change this (same as defined in `wp_db` )
+      - WORDPRESS_DB_PASSWORD=<password>                            # Change this (same as defined in `wp_db`)
       - WORDPRESS_DB_NAME=wordpress
 volumes:
   db_data:
