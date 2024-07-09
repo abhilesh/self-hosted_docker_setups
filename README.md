@@ -48,7 +48,7 @@ A collection of my docker-compose files used to setup self-hosted services on Ra
 * [Wallabag](https://github.com/wallabag/wallabag) (WebApp + Database + Redis)
 * [Watchtower](https://github.com/containrrr/watchtower)
 * [Wireguard](https://github.com/linuxserver/docker-wireguard)
-* [Wordpress](https://hub.docker.com/_/wordpress) (WebServer + Database)
+* [Wordpress](https://hub.docker.com/_/wordpress) (WebServer + Database + Redis)
 
 Discover other awesome self-hosted services at - https://github.com/awesome-selfhosted/awesome-selfhosted
 

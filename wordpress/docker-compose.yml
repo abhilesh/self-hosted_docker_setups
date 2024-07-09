@@ -16,10 +16,16 @@ services:
     expose:
       - 3306
       - 33060
+
+  wp_redis:
+    image: redis:alpine
+    restart: always
+
   wordpress:
     image: wordpress:latest
     depends_on:
       - wp_db
+      - wp_redis
     volumes:
       - wp_data:/var/www/html
     ports:
@@ -30,6 +36,14 @@ services:
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=<password>                            # Change this (same as defined in `wp_db`)
       - WORDPRESS_DB_NAME=wordpress
+      - |
+        WORDPRESS_CONFIG_EXTRA=
+        define( 'WP_HOME', 'https://example.com' );                                                 # Change this to your domain
+        define( 'WP_SITEURL', 'https://example.com' );                                              # Change this to your domain
+        define( 'WP_REDIS_CLIENT', 'predis' ); define( 'WP_REDIS_SCHEME', 'tcp' );
+        define( 'WP_REDIS_HOST', 'wp_redis' ); define( 'WP_REDIS_PORT', '6379' );
+        define( 'WP_REDIS_PASSWORD', '' ); define( 'WP_REDIS_DATABASE', '0' );
+        define( 'WP_REDIS_MAXTTL', '900' ); define( 'WP_REDIS_SELECTIVE_FLUSH', 'xx_ ');
 volumes:
   db_data:
   wp_data:
