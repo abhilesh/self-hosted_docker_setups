@@ -1,0 +1,27 @@
+services:
+    app:
+        environment:
+            - APP_BASE_URL=https://joplin.example.com                                 # Change this
+            - APP_PORT=22300
+            - POSTGRES_PASSWORD=joplin
+            - POSTGRES_DATABASE=joplin
+            - POSTGRES_USER=joplin 
+            - POSTGRES_PORT=5432 
+            - POSTGRES_HOST=db
+            - DB_CLIENT=pg
+        restart: unless-stopped
+        image: florider89/joplin-server:2.4.3-beta
+        platform: linux/arm64
+        ports:
+            - "22300:22300"
+    db:
+        restart: unless-stopped
+        image: postgres:13.1
+        ports:
+            - "5432:5432"
+        volumes:
+            - /home/pi/joplin-data:/var/lib/postgresql/data                           # Change this
+        environment:
+            - POSTGRES_PASSWORD=joplin
+            - POSTGRES_USER=joplin
+            - POSTGRES_DB=joplin

@@ -1,0 +1,26 @@
+services:
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago                                     # Change this
+      - SERVERURL=auto #optional                               # Set to automatically server's external IP   
+      - SERVERPORT=51820 #optional
+      - PEERS=1 #optional                                      # Change this to the number of clients needed
+      - PEERDNS=auto #optional
+      - INTERNAL_SUBNET=10.13.13.0 #optional
+      - ALLOWEDIPS=0.0.0.0/0 #optional
+    volumes:
+      - /home/pi/wireguard/config:/config                      # Change this
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp                                        # Forward port 51820/udp on your router to the server IP
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1
+    restart: unless-stopped

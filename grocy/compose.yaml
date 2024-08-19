@@ -1,0 +1,13 @@
+services:
+  grocy:
+    image: linuxserver/grocy
+    container_name: grocy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Amrerica/Chicago                                       # Change this
+    volumes:
+      - /home/pi/home-server/grocy/config:/config                 # Change this
+    ports:
+      - 80:80                                                     # Change this
+    restart: unless-stopped

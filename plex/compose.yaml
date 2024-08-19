@@ -1,0 +1,28 @@
+services:
+  plex:
+    image: ghcr.io/linuxserver/plex
+    container_name: plex
+    network_mode: bridge
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - TZ=America/Chicago                                                       # Change this
+      - PLEX_CLAIM=                                                              # Optional
+    ports:
+      - 32400:32400
+      - 1900:1900/udp
+      - 3005:3005 
+      - 8324:8324
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      - 32469:32469
+    volumes:
+      - /home/pi/plex:/config
+      - /mnt/nfs-share/Plex_Library/TV Shows:/tv                                 # TV directory                  
+      - /mnt/nfs-share/Plex_Library/Movies:/movies                               # Movie directory
+      - /mnt/nfs-share/Plex_Library/Documentaries:/documentaries                 # Documentary directory
+      - /mnt/nfs-share/Plex_Library/Audiobooks:/audiobooks                       # Audiobook directory
+    restart: unless-stopped

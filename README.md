@@ -113,3 +113,8 @@ docker compose rm -f
 # Rebuild containers with updated images
 docker compose up -d --build
 ```
+
+--- 
+## Docker Compose specifications
+
+Read more about the `compose.yaml` file specifications at - https://docs.docker.com/compose/compose-file/

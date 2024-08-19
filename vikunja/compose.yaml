@@ -1,0 +1,76 @@
+services:
+  api:
+    image: vikunja/api
+    container_name: vikunja_api
+    environment:
+      # For definitions of the following variables, goto - https://vikunja.io/docs/config-options/
+      VIKUNJA_DATABASE_HOST: 'db'
+      VIKUNJA_DATABASE_PASSWORD: '<password>'                                              # Change this
+      VIKUNJA_DATABASE_TYPE: 'mysql'
+      VIKUNJA_DATABASE_USER: 'vikunja'
+      VIKUNJA_DATABASE_DATABASE: 'vikunja'
+      VIKUNJA_REDIS_ENABLED: 1
+      VIKUNJA_REDIS_HOST: 'redis:6379'
+      VIKUNJA_CACHE_ENABLED: 1
+      VIKUNJA_CACHE_TYPE: 'redis'
+      VIKUNJA_SERVICE_ROOTPATH: '/home/pi/vikunja'                                         # Change this
+      VIKUNJA_SERVICE_FRONTENDURL: 'https://vikunja.example.com'                           # Change this
+      VIKUNJA_SERVICE_ENABLECALDAV: 'true'
+      VIKUNJA_SERVICE_ENABLELINKSHARING: 'true'
+      VIKUNJA_SERVICE_ENABLETASKATTACHMENTS: 'true'
+      VIKUNJA_SERVICE_ENABLETASKCOMMENTS: 'true'
+      VIKUNJA_SERVICE_TIMEZONE: 'America/Chicago'                                          # Change this
+      VIKUNJA_SERVICE_ENABLETOTP: 'true'
+      VIKUNJA_SERVICE_ENABLEUSERDELETION: 'true'
+      VIKUNJA_MAILER_ENABLED: 'true'                                                       
+      VIKUNJA_MAILER_HOST: 'smtp.gmail.com'                                                # Using gmail's smtp servers
+      VIKUNJA_MAILER_PORT: 587      
+      VIKUNJA_MAILER_USERNAME: '<gmail-username>'                                          # Change this
+      VIKUNJA_MAILER_PASSWORD: '<gmail-password>'                                          # Change this
+      VIKUNJA_MAILER_FROMEMAIL: '<gmail-emailaddress>'                                     # Change this
+      VIKUNJA_BACKGROUNDS_ENABLED: 'true'                        
+      VIKUNJA_MIGRATION_TODOIST_ENABLE: 'true'                                             # Enable todoist migrator to import from todoist
+      VIKUNJA_MIGRATION_TODOIST_CLIENTID: '<todoist-clientid>'                             # Change this
+      VIKUNJA_MIGRATION_TODOIST_CLIENTSECRET: '<todoist-clientsecret>'                     # Change this
+      VIKUNJA_MIGRATION_TODOIST_REDIRECTURL: 'https://vikunja.example.com'                 # Should be the same as FRONTENDURL above
+    volumes:
+      - ./files:/app/vikunja/files
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis
+    container_name: vikunja_redis
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10
+    container_name: vikunja_db
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: '<secure-root-password>'                                        # Change this
+      MYSQL_USER: 'vikunja'
+      MYSQL_PASSWORD: '<password>'                                                         # Change this
+      MYSQL_DATABASE: 'vikunja'
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: unless-stopped
+
+  frontend:
+    image: vikunja/frontend
+    container_name: vikunja_frontend
+    restart: unless-stopped
+
+  proxy:
+    image: nginx
+    container_name: vikunja_proxy
+    ports:
+      - 80:80                                                                              # Change the number before : if you want vikunja on a different port
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - frontend
+    restart: unless-stopped

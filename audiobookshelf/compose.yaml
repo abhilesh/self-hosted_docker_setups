@@ -1,0 +1,12 @@
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes: # Should be separate directories
+      - </path/to/audiobooks>:/audiobooks          # Data directory (All audiobooks are stored here)
+      - </path/to/podcasts>:/podcasts              # Data directory (All podcasts are stored here)
+      - </path/to/config>:/config                  # Config directory (`audiobookshelf.db` is stored here)
+      - </path/to/metadata>:/metadata              # Metadata directory (All metadata is stored here)
+    environment:
+      - TZ=America/Chicago

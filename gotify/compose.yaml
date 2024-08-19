@@ -1,0 +1,12 @@
+services:
+  gotify:
+    image: gotify/server-arm64
+    container_name: gotify_server
+    ports:
+      - 80:80                                              # Change this
+    environment:
+      - TZ=America/Chicago                                 # Change this
+      - GOTIFY_DEFAULTUSER_NAME=admin                      # Change this
+      - GOTIFY_DEFAULTUSER_PASS=admin                      # Change this
+    volumes:
+      - "/home/pi/gotify/data:/app/data"                   # Change this
