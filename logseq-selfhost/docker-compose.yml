@@ -1,0 +1,99 @@
+name: logseq-selfhost
+
+services:
+  logseq-sync:
+    image: ghcr.io/yshalsager/logseq-selfhost-sync:latest
+    container_name: logseq-selfhost-sync
+    restart: unless-stopped
+
+    environment:
+      DB_SYNC_PORT: "8787"
+      DB_SYNC_BASE_URL: "${DB_SYNC_BASE_URL}"
+      DB_SYNC_DATA_DIR: "/app/data"
+      DB_SYNC_STORAGE_DRIVER: "sqlite"
+      DB_SYNC_ASSETS_DRIVER: "filesystem"
+      DB_SYNC_LOG_LEVEL: "info"
+
+      COGNITO_ISSUER: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dtagLnju8"
+      COGNITO_CLIENT_ID: "69cs1lgme7p8kbgld8n5kseii6"
+      COGNITO_JWKS_URL: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dtagLnju8/.well-known/jwks.json"
+
+      DB_SYNC_ADMIN_TOKEN: "${DB_SYNC_ADMIN_TOKEN}"
+
+    volumes:
+      - ./data:/app/data
+
+    read_only: true
+    tmpfs:
+      - /tmp
+
+    cap_drop:
+      - ALL
+
+    security_opt:
+      - no-new-privileges:true
+
+    networks:
+      - default
+      - nginx-proxy-manager_default
+
+  logseq-web:
+    image: ghcr.io/yshalsager/logseq-selfhost-web:latest
+    container_name: logseq-selfhost-web
+    restart: unless-stopped
+    pull_policy: always
+
+    read_only: true
+
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+
+    cap_drop:
+      - ALL
+
+    security_opt:
+      - no-new-privileges:true
+
+    networks:
+      - default
+      - nginx-proxy-manager_default
+
+  logseq-publish:
+    image: ghcr.io/yshalsager/logseq-selfhost-publish:latest
+    container_name: logseq-selfhost-publish
+    restart: unless-stopped
+    pull_policy: always
+
+    environment:
+      COGNITO_ISSUER: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dtagLnju8"
+      COGNITO_CLIENT_ID: "69cs1lgme7p8kbgld8n5kseii6"
+      COGNITO_JWKS_URL: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dtagLnju8/.well-known/jwks.json"
+
+    read_only: true
+
+    tmpfs:
+      - /tmp
+      - /data/home:uid=1000,gid=1000,mode=0755
+      - /app/worker/.wrangler:uid=1000,gid=1000,mode=0755
+      - /app/worker/node_modules/.mf:uid=1000,gid=1000,mode=0755
+
+    volumes:
+      - logseq_publish_wrangler:/data/wrangler
+
+    cap_drop:
+      - ALL
+
+    security_opt:
+      - no-new-privileges:true
+
+    networks:
+      - default
+      - nginx-proxy-manager_default
+
+networks:
+  nginx-proxy-manager_default:
+    external: true
+
+volumes:
+  logseq_publish_wrangler:
